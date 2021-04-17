@@ -1,0 +1,256 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap");
+$size: 10px;
+$speed: 5s;
+
+body {
+  font-family: "Noto Sans JP", sans-serif !important;
+  background-image: linear-gradient(#000, #204);
+  min-height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  perspective: 10px * 100;
+//   display: flex;
+//   
+}
+.navbar {
+  display: flex;
+  margin: 10px;
+  font-size: 30px;
+  .nav-left {
+    a {
+      color: white;
+      text-decoration: none;
+    }
+  }
+}
+.typewriter h1 {
+    position: absolute;
+    top: 180px;
+    left: 10px;
+    color: #fff;
+    font-family:"Noto Sans JP", sans-serif  ;
+    overflow: hidden; /* Ensures the content is not revealed until the animation */
+    border-right: .15em solid orange; /* The typwriter cursor */
+    white-space: nowrap; /* Keeps the content on a single line */
+    margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+    letter-spacing: .15em; /* Adjust as needed */
+    animation: 
+      typing 3.5s steps(30, end),
+      blink-caret .5s step-end infinite;
+  }
+  
+  /* The typing effect */
+  @keyframes typing {
+    from { width: 0 }
+    to { width: 800px }
+  }
+  
+  /* The typewriter cursor effect */
+  @keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: orange }
+  }
+// faffa
+.fireworks {
+  position: absolute;
+  top: 100%; left: 50%;
+  width: $size; height: $size;
+  transform-style: preserve-3d;
+  transform: translateX(-50%);
+  
+  @keyframes fireworksTop {
+    0% { top: 100%; }
+    25% { top: var(--height); animation-timing-function: ease-in; }
+    100% { top: 200%; }
+  }
+  
+  @for $f from 0 to 3 {
+    &:nth-child(#{$f + 1}) {
+      $delay: $f / 3 * $speed;
+      animation:
+        fireworksTop $speed $delay infinite ease-out,
+        fireworks#{$f} $speed*10 $delay infinite step-end;
+      
+      @keyframes fireworks#{$f} {
+        @for $i from 0 to 10 {
+          #{($i * 10) + "%"} {
+            left: #{(20 + random(60)) + "%"};
+            transform: translateX(-50%) scale(#{(50 + random(50)) / 100});
+            --hue: #{36 * $i};
+            --height: #{15 + random(25) + "%"}
+          }
+        }
+      } 
+      
+      & > .year {
+        background-color: hsl(calc(var(--hue) + #{$f * 120}), 100%, 75%);
+      }
+
+      @for $y from 1 through 73 {
+        & > .year:nth-child(#{$y}) {
+          --t:
+            translateX(#{(random(100) - 50) * $size})
+            translateY(#{(random(50) - 75) * $size})
+            translateZ(#{(random(100) - 50) * $size})
+            rotateX(#{random(720)}deg)
+            rotateY(#{random(720)}deg)
+            rotateZ(#{random(720)}deg)
+            scale(0);
+        }
+      }
+    }
+  }
+   
+  & > .year {
+    position: absolute;
+    width: 100%; height: 100%;
+    background-color: #fff;
+    animation: yearTransform $speed infinite ease-out;
+    animation-delay: inherit;
+       
+    @keyframes yearTransform {
+      0% { transform: scale(0); }
+      25% { transform: none; }
+      100% { transform: var(--t); }
+    }
+  }
+}
+
+
+// cards
+// #navbarContainer{
+//   width: 400px;
+//   min-width: 400px;
+//   height: 50vh;
+//   background-color: #ffcc80;
+//   border-radius: 20px;
+//   display: flex;
+//   justify-content: flex-end;
+//   flex-direction: column;
+//   overflow: hidden;
+//   position: relative;
+//   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+// }
+
+// #navbar{
+//   width: 100%;
+//   height: 60px;
+//   background-color: #fff;
+//   position: absolute;
+// }
+
+// #bubbleWrapper{
+//   position: absolute;
+//   display: flex;
+//   justify-content: space-around;
+//   width: 100%;
+//   bottom: 25px;
+// }
+
+// .bubble{
+//   background-color: #fff;
+//   width: 50px;
+//   height: 50px;
+//   bottom: 85px;
+//   border-radius: 50%;
+//   z-index: 1;
+//   transform: translateY(120%);
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+// }
+// .icon{
+//   opacity: 0;
+// }
+
+// #bubble1{
+//   transform: translateY(0%);
+//   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+//   > span{
+//     opacity: 0.7;
+//   }
+// }
+
+// #bgWrapper{
+//   filter: url(#goo);
+//   width: 100%;
+//   height: 100px;
+//   position: absolute;
+//   bottom: 60px;
+// }
+// #bg{
+//   background-color: #ffcc80;
+//   width: 120%;
+//   height: 100%;
+//   margin-left: -10%;
+// }
+// #bgBubble{
+//   position: absolute;
+//   background-color: #ffcc80;
+//   width: 70px;
+//   height: 70px;
+//   border-radius: 50%;
+//   bottom: -50px;
+//   left: 50px;
+//   transform: translateX(-50%);
+// }
+
+// #menuWrapper{
+//   position: absolute;
+//   width: 100%;
+//   display: flex;
+//   justify-content: space-around;
+// }
+
+// .menuElement{
+//   opacity: 0.4;
+//   transform: translateY(100%);
+//   cursor: pointer;
+//   &:hover{
+//     opacity: 0.5;
+//   }
+// }
+
+// #contentWrapper{
+//   position: absolute;
+//   top: 50%;
+//   width: 100%;
+//   transform: translateY(-50%);
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   h2{
+//     color: #fff;
+//     font-family: sans-serif;
+//     font-weight: 400;
+//   }
+// }
+// .content{
+//   display: none;
+//   opacity: 0;
+// }
+.city {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 30vh;
+    background-repeat: no-repeat;
+  
+    $w: 0px;
+    $bgSize: "0 0";
+    $bgPos: "center";
+    $bgImg: "linear-gradient(#000, #102)";
+  
+    @while $w < 2000px {
+      $thisWidth: (1 + random(5)) * 10px;
+      $thisHeight: (10 + random(90));
+      $bgSize: $bgSize + ", " + $thisWidth + " " + $thisHeight + "%";
+      $bgPos: $bgPos + ", " + $w + " bottom";
+      $bgImg: $bgImg + ", linear-gradient(#000, #102)";
+      $w: $w + $thisWidth;
+    }
+  
+    background-size: #{$bgSize};
+    background-position: #{$bgPos};
+    background-image: #{$bgImg};
+  }
